@@ -1,7 +1,10 @@
-import { Inter } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar/Navbar";
+import Container from "@/components/ui/container";
+import { AuthProvider } from "./context/authContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const dm_sans = DM_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +14,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`main`}>
+        <AuthProvider>
+          <Navbar />
+          <Container>{children}</Container>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

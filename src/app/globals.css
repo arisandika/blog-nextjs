@@ -2,32 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
+/* fonts */
+@font-face {
+  font-family: "power";
+  src: url("../fonts/PowerGroteskTrial-Heavy.woff2") format("woff2"),
+    url("../fonts/PowerGroteskTrial-Heavy.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "durer";
+  src: url("../fonts/durer-webfont.woff2") format("woff2"),
+    url("../fonts/durer-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "montreal";
+  src: url("../fonts/ppneuemontreal-medium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "montreal-thin";
+  src: url("../fonts/ppneuemontreal-thin.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --font-power: "power";
+  --font-durer: "durer";
+  --font-montreal: "montreal";
+  --font-montreal-thin: "montreal-thin";
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.main {
+  font-family: var(--font-montreal);
+  letter-spacing: 0.5px;
+  background-color: #040404;
+  color: #f4f4f5;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.power {
+  font-family: var(--font-power);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.durer {
+  font-family: var(--font-durer);
+  font-weight: 900;
+}
+
+.montreal {
+  font-family: var(--font-montreal);
+}
+
+.montreal-thin {
+  font-family: var(--font-montreal-thin);
+}
+
+/* webkit scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
