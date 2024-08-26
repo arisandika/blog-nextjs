@@ -7,7 +7,8 @@ const nextConfig = {
         "avatars.githubusercontent.com",
         "resources.247studio.co",
         "maag.codesupply.co",
-        "localhost"
+        "blog-api.arisandika.my.id",
+        "localhost",
     ],
   },
 };

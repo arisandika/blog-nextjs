@@ -23,7 +23,11 @@ const PostCard = ({ minimal, preloadImage, fontSize, fontWeight }) => {
           >
             <PostImage
               alias={post.alias}
-              thumbnail_url={"https://blog-api.arisandika.my.id/public/images/y5veDt5dIA4FNjk6djYl6HJ56LGNcdN3.jpg"}
+              thumbnail_url={
+                post.thumbnail_url !== '' && post.thumbnail_url !== null
+                  ? post.thumbnail_url
+                  : "https://maag.codesupply.co/lifestyle/wp-content/uploads/sites/2/2024/08/demo-image-0061-1536x864.webp"
+              }
               preloadImage={preloadImage}
             />
             <div className={cx(minimal && "flex items-center")}>
