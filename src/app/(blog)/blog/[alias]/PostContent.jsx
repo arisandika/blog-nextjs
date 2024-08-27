@@ -6,7 +6,7 @@ const PostContent = ({ content }) => {
   }
 
   return (
-    <article>
+    <article className="space-y-8">
       {content.map((paragraph, index) => (
         <div key={index} className="mx-auto text-base md:text-lg">
           {paragraph}

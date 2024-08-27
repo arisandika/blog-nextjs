@@ -8,12 +8,8 @@ const PostMetaDetail = ({ category, title, created_at, author, tag }) => {
   return (
     <>
       <div className="flex justify-center">
-        <span
-          className={cx(
-            "inline-block text-xs font-medium tracking-wider uppercase text-zinc-400"
-          )}
-        >
-          {category.name}
+        <span className="inline-block text-xs font-medium tracking-wider uppercase text-zinc-400">
+          {category}
         </span>
       </div>
       <h1 className="mx-auto my-5 text-3xl font-normal text-center md:max-w-2xl md:text-4xl text-brand-primary">

@@ -24,6 +24,7 @@ const UserMenu = () => {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        setIsLoggedIn(false);
         setLoading(false);
         return;
       }
@@ -47,10 +48,15 @@ const UserMenu = () => {
             setIsLoggedIn(false);
           }
         } else {
+          // Handle token expiration or other errors
+          localStorage.removeItem("token");
           setIsLoggedIn(false);
         }
       } catch (error) {
         console.error("Token verification failed:", error);
+        // Remove token if an error occurs
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
       } finally {
         setLoading(false);
       }
@@ -63,6 +69,7 @@ const UserMenu = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
+      setIsLoggedIn(false);
       setLoading(false);
       return;
     }
@@ -79,7 +86,7 @@ const UserMenu = () => {
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
-      // localStorage.removeItem("token");
+      localStorage.removeItem("token");
       setIsLoggedIn(false);
       router.replace("/login");
     }

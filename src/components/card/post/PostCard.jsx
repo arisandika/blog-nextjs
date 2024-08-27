@@ -14,7 +14,7 @@ const PostCard = ({ minimal, preloadImage, fontSize, fontWeight }) => {
   if (!posts) return <CardSkeleton />;
 
   return (
-    <div className="grid gap-8 md:gap-10 md:grid-cols-2">
+    <div className="grid gap-6 md:gap-10 md:grid-cols-2">
       {posts &&
         posts.data.map((post) => (
           <div

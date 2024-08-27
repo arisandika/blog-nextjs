@@ -10,6 +10,8 @@ export const verifyToken = async (
 
   if (!token) {
     router.replace("/login");
+    setIsLoggedIn(false);
+    setLoading(false);
     return;
   }
 
@@ -26,7 +28,6 @@ export const verifyToken = async (
     const data = await response.json();
 
     if (response.ok) {
-      console.log(data);
       if (data.data.role_as !== 1) {
         router.replace("/login");
       } else {

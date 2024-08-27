@@ -25,6 +25,8 @@ export function useFetchPostDetail() {
 
         const data = await response.json();
 
+        console.log("Post fetched successfully:", data);
+
         // Convert content JSON string to array
         const postData = {
           ...data.data,

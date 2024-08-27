@@ -16,6 +16,8 @@ const Dashboard = () => {
 
       if (!token) {
         router.replace("/login");
+        setIsLoggedIn(false);
+        setLoading(false);
         return;
       }
 

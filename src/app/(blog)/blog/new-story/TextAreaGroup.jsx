@@ -16,7 +16,7 @@ const TextAreaGroup = ({ textareas, setTextareas }) => {
             id={`content-${textarea.id}`}
             name={`content[]`}
             placeholder={`Paragraph ${textarea.id}`}
-            className="text-base md:text-lg min-h-[200px] border"
+            className="text-base md:text-lg min-h-[120px]"
           />
           <Button
             variant="icon"

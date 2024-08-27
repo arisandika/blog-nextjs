@@ -2,7 +2,7 @@
 import Loading from "@/components/ui/loading";
 import PostMetaDetail from "./PostMetaDetail";
 import PostImageDetail from "./PostImageDetail";
-import PostContent from "./PostContentDetail";
+import PostContent from "./PostContent";
 import PostBackLink from "./PostBackLink";
 import { useFetchPostDetail } from "@/hooks/useFetchPostDetail";
 
