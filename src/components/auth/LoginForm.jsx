@@ -41,10 +41,10 @@ const LoginForm = ({ setMessage }) => {
 
       switch (roleAs) {
         case 0:
-          router.push("/dashboard");
+          router.push("/blog-new-story");
           break;
         case 1:
-          router.push("/dashboard-admin");
+          router.push("/dashboard");
           break;
         default:
           setMessage("You do not have access to any dashboard");

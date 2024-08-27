@@ -41,14 +41,12 @@ const UserMenu = () => {
         if (response.ok) {
           const data = await response.json();
 
-          if (data.data.role_as === 0) {
+          if (data.data.role_as === 1) {
             setIsLoggedIn(true);
           } else {
-            localStorage.removeItem("token");
             setIsLoggedIn(false);
           }
         } else {
-          localStorage.removeItem("token");
           setIsLoggedIn(false);
         }
       } catch (error) {
@@ -81,7 +79,7 @@ const UserMenu = () => {
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       setIsLoggedIn(false);
       router.replace("/login");
     }
@@ -120,9 +118,7 @@ const UserMenu = () => {
         variant="icon"
         size="icon"
         className="hidden md:flex"
-        onClick={() =>
-          router.push(isLoggedIn ? "/blog/new-story" : "/login")
-        }
+        onClick={() => router.push("/blog/new-story")}
       >
         <SquarePen className="w-5 h-5" />
         <span className="mx-2">Write</span>
@@ -143,7 +139,13 @@ const UserMenu = () => {
         {isLoggedIn && (
           <>
             <DropdownMenuItem>
-              <Button variant="icon" size="iconDropdown">
+              <Button
+                variant="icon"
+                size="iconDropdown"
+                onClick={() =>
+                  router.push(isLoggedIn ? "/blog/new-story" : "/login")
+                }
+              >
                 <SquarePen className="w-5 h-5" />
                 <span className="mx-2">Write</span>
               </Button>

@@ -32,7 +32,7 @@ const Dashboard = () => {
         const data = await response.json();
 
         if (response.ok) {
-          if (data.data.role_as !== 0) {
+          if (data.data.role_as !== 1) {
             router.replace("/login");
           } else {
             setAuthorized(true);

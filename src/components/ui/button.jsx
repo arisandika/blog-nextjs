@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
         link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
-        icon: "bg-transparent text-zinc-400 hover:text-zinc-200 ring-offset-black/90",
+        icon: "bg-transparent text-zinc-400 hover:text-zinc-200 ring-offset-transparent focus-visible:ring-offset-0",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -28,6 +28,7 @@ const buttonVariants = cva(
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10",
+        iconInput: "h-12 w-12 p-2",
         iconDropdown: "h-auto w-auto",
       },
     },

@@ -5,6 +5,8 @@ import { useParams } from "next/navigation";
 export function useFetchPostDetail() {
   const { alias } = useParams();
   const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPostDetail = async () => {
@@ -17,15 +19,28 @@ export function useFetchPostDetail() {
           body: JSON.stringify({ alias }),
         });
 
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
         const data = await response.json();
-        setPost(data.data);
+
+        // Convert content JSON string to array
+        const postData = {
+          ...data.data,
+          content: Array.isArray(JSON.parse(data.data.content)) ? JSON.parse(data.data.content) : [],
+        };
+        setPost(postData);
       } catch (error) {
+        setError(error);
         console.error("Error fetching post:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPostDetail();
   }, [alias]);
 
-  return post;
+  return { post, loading, error };
 }

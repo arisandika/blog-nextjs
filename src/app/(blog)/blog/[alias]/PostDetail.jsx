@@ -7,15 +7,17 @@ import PostBackLink from "./PostBackLink";
 import { useFetchPostDetail } from "@/hooks/useFetchPostDetail";
 
 const PostDetail = () => {
-  const post = useFetchPostDetail();
+  const { post, loading, error } = useFetchPostDetail();
 
-  if (!post) return <Loading height="h-screen" margintop={"-mt-28"} />;
+  if (loading) return <Loading height="h-screen" margintop={"-mt-28"} />;
+  if (error) return <div>Error fetching post: {error.message}</div>;
+  if (!post) return <div>No post data available.</div>;
 
   return (
     <div className="max-w-4xl mx-auto">
       <section>
         <PostMetaDetail
-          category={post.category}
+          category={post.category.name}
           created_at={post.created_at}
           author={post.user.name}
           tag={post.tag.name}
