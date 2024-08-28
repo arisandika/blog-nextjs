@@ -24,7 +24,7 @@ const PostDetail = () => {
           title={post.title}
         />
       </section>
-      <section className="mt-6 mb-6 md:mb-10">
+      <section className="mt-6 mb-8 md:mb-10">
         <PostImageDetail
           contentImageUrl={
             post.content_image_url
