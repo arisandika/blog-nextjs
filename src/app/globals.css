@@ -81,3 +81,10 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Toastify */
+
+.toast-message {
+  font-size: 12px;
+  line-height: 1.25rem /* 20px */;
+}

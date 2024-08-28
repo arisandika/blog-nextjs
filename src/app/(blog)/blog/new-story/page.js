@@ -15,7 +15,6 @@ import TextAreaGroup from "./TextAreaGroup";
 import API_URL from "@/utils/config";
 import FileInputGroup from "./FileInputGroup";
 import SelectInputGroup from "./SelectInputGroup";
-import { useFetchCategories } from "@/hooks/useFetchCategories";
 import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -167,7 +166,9 @@ const NewStory = () => {
 
         if (data.errors) {
           Object.entries(data.errors).forEach(([key, value]) => {
-            toast.error(value[0]);
+            toast.error(value[0], {
+              className: "toast-message",
+            });
           });
         } else {
           toast.error("Failed to submit story.");
@@ -256,6 +257,7 @@ const NewStory = () => {
         </div>
       </form>
 
+      <div className="absolute px-4">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -269,6 +271,7 @@ const NewStory = () => {
         theme="dark"
         transition={Slide}
       />
+      </div>
     </>
   );
 };
