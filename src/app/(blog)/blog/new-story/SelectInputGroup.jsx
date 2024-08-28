@@ -19,18 +19,22 @@ const SelectInputGroup = ({
   const [selectedTagId, setSelectedTagId] = useState("");
 
   useEffect(() => {
-    // Update parent component when selectedCategoryId changes
     if (onCategoryChange) {
-      onCategoryChange(selectedCategoryId);
+      const selectedCategory = categories.data.find(
+        (category) => category.id === parseInt(selectedCategoryId)
+      );
+      onCategoryChange(selectedCategoryId, selectedCategory?.name);
     }
-  }, [selectedCategoryId, onCategoryChange]);
+  }, [selectedCategoryId, onCategoryChange, categories]);
 
   useEffect(() => {
-    // Update parent component when selectedTagId changes
     if (onTagChange) {
-      onTagChange(selectedTagId);
+      const selectedTag = tags.data.find(
+        (tag) => tag.id === parseInt(selectedTagId)
+      );
+      onTagChange(selectedTagId, selectedTag?.name);
     }
-  }, [selectedTagId, onTagChange]);
+  }, [selectedTagId, onTagChange, tags]);
 
   if (!categories || !tags) return <CardSkeleton />;
 

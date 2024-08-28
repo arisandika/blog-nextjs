@@ -31,6 +31,10 @@ const NewStory = () => {
   const [tags, setTags] = useState(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedTagId, setSelectedTagId] = useState("");
+  const [thumbnailFileName, setThumbnailFileName] = useState("");
+  const [contentFileName, setContentFileName] = useState("");
+  const [selectedCategoryName, setSelectedCategoryName] = useState("");
+  const [selectedTagName, setSelectedTagName] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -108,18 +112,22 @@ const NewStory = () => {
 
   const handleThumbnailChange = (file) => {
     setThumbnailFile(file);
+    setThumbnailFileName(file ? file.name : "");
   };
 
   const handleContentChange = (file) => {
     setContentFile(file);
+    setContentFileName(file ? file.name : "");
   };
 
-  const handleCategoryChange = (value) => {
+  const handleCategoryChange = (value, name) => {
     setSelectedCategoryId(value);
+    setSelectedCategoryName(name);
   };
 
-  const handleTagChange = (value) => {
+  const handleTagChange = (value, name) => {
     setSelectedTagId(value);
+    setSelectedTagName(name);
   };
 
   const postSubmit = async (e) => {
@@ -160,7 +168,7 @@ const NewStory = () => {
         toast.success("Story submitted successfully!");
         setTimeout(() => {
           router.push("/");
-        }, 5000); 
+        }, 5000);
       } else {
         console.log("Failed to submit story");
 
@@ -244,6 +252,29 @@ const NewStory = () => {
             />
           )}
 
+          <div className="flex flex-wrap items-center gap-4 mt-2 text-xs">
+            {thumbnailFileName && (
+              <p className="px-2 py-1 text-white rounded bg-zinc-800">
+                Thumbnail: {thumbnailFileName}
+              </p>
+            )}
+            {contentFileName && (
+              <p className="px-2 py-1 text-white rounded bg-zinc-800">
+                Content Image: {contentFileName}
+              </p>
+            )}
+            {selectedCategoryName && (
+              <p className="px-2 py-1 text-white capitalize rounded bg-zinc-800">
+                Category: {selectedCategoryName}
+              </p>
+            )}
+            {selectedTagName && (
+              <p className="px-2 py-1 text-white capitalize rounded bg-zinc-800">
+                Tag: {selectedTagName}
+              </p>
+            )}
+          </div>
+
           <div className="flex justify-end w-full">
             <Button
               variant="secondary"
@@ -257,7 +288,6 @@ const NewStory = () => {
         </div>
       </form>
 
-      <div className="absolute px-4">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -271,7 +301,6 @@ const NewStory = () => {
         theme="dark"
         transition={Slide}
       />
-      </div>
     </>
   );
 };
