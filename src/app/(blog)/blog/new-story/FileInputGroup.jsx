@@ -36,7 +36,7 @@ const FileInputGroup = ({
   return (
     <div className="relative grid gap-4 p-4 border rounded-md md:w-80 md:left-[60px] border-zinc-800">
       <div className="mb-2 space-y-2 border-b border-zinc-800">
-        <h4 className="font-medium leading-none">Upload files</h4>
+        <h4 className="font-medium leading-none">Upload media</h4>
         <p className="pb-2 text-sm text-zinc-400">Add images</p>
       </div>
       <div className="grid gap-2">

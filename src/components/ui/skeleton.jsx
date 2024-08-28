@@ -6,7 +6,7 @@ function Skeleton({
 }) {
   return (
     (<div
-      className={cn("animate-pulse rounded bg-zinc-900", className)}
+      className={cn("animate-pulse rounded bg-zinc-800", className)}
       {...props} />)
   );
 }

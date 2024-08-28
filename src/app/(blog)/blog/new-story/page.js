@@ -17,6 +17,12 @@ import FileInputGroup from "./FileInputGroup";
 import SelectInputGroup from "./SelectInputGroup";
 import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const NewStory = () => {
   const [loading, setLoading] = useState(true);
@@ -174,9 +180,7 @@ const NewStory = () => {
 
         if (data.errors) {
           Object.entries(data.errors).forEach(([key, value]) => {
-            toast.error(value[0], {
-              className: "toast-message",
-            });
+            toast.error(value[0]);
           });
         } else {
           toast.error("Failed to submit story.");
@@ -202,38 +206,65 @@ const NewStory = () => {
           />
           <TextAreaGroup textareas={textareas} setTextareas={setTextareas} />
           <div className="flex gap-3">
-            <Button
-              variant="icon"
-              size="iconInput"
-              className="border rounded-full border-zinc-800"
-              onClick={addTextarea}
-            >
-              <CircleFadingPlus className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="icon"
-              size="iconInput"
-              className="border rounded-full border-zinc-800"
-              onClick={toggleFileInput}
-            >
-              {showFileInput ? (
-                <Close className="w-5 h-5" />
-              ) : (
-                <ImageIcon className="w-5 h-5" />
-              )}
-            </Button>
-            <Button
-              variant="icon"
-              size="iconInput"
-              className="border rounded-full border-zinc-800"
-              onClick={toggleSelect}
-            >
-              {showSelect ? (
-                <Close className="w-5 h-5" />
-              ) : (
-                <TableProperties className="w-5 h-5" />
-              )}
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="icon"
+                    size="iconInput"
+                    className="border rounded-full border-zinc-800"
+                    onClick={addTextarea}
+                  >
+                    <CircleFadingPlus className="w-5 h-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Add new paragraph</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="icon"
+                    size="iconInput"
+                    className="border rounded-full border-zinc-800"
+                    onClick={toggleFileInput}
+                  >
+                    {showFileInput ? (
+                      <Close className="w-5 h-5" />
+                    ) : (
+                      <ImageIcon className="w-5 h-5" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Add media</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="icon"
+                    size="iconInput"
+                    className="border rounded-full border-zinc-800"
+                    onClick={toggleSelect}
+                  >
+                    {showSelect ? (
+                      <Close className="w-5 h-5" />
+                    ) : (
+                      <TableProperties className="w-5 h-5" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Add category and tags</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           {showFileInput && (
             <FileInputGroup
@@ -252,7 +283,7 @@ const NewStory = () => {
             />
           )}
 
-          <div className="flex flex-wrap items-center gap-4 mt-2 text-xs">
+          <div className="flex flex-wrap items-center gap-2 mt-2 text-xs">
             {thumbnailFileName && (
               <p className="px-2 py-1 text-white rounded bg-zinc-800">
                 Thumbnail: {thumbnailFileName}
@@ -300,6 +331,7 @@ const NewStory = () => {
         pauseOnHover
         theme="dark"
         transition={Slide}
+        className={"toast-message"}
       />
     </>
   );
