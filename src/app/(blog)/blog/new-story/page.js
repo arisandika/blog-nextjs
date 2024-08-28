@@ -16,6 +16,8 @@ import API_URL from "@/utils/config";
 import FileInputGroup from "./FileInputGroup";
 import SelectInputGroup from "./SelectInputGroup";
 import { useFetchCategories } from "@/hooks/useFetchCategories";
+import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewStory = () => {
   const [loading, setLoading] = useState(true);
@@ -159,6 +161,14 @@ const NewStory = () => {
         router.push("/blog/new-story");
       } else {
         console.log("Failed to submit story");
+
+        if (data.errors) {
+          Object.entries(data.errors).forEach(([key, value]) => {
+            toast.error(value[0]); // Display the first error message for each field
+          });
+        } else {
+          toast.error("Failed to submit story.");
+        }
       }
     } catch (error) {
       console.error("Error submitting story:", error);
@@ -166,81 +176,97 @@ const NewStory = () => {
   };
 
   return (
-    <form
-      onSubmit={postSubmit}
-      encType="multipart/form-data"
-      className="w-full"
-    >
-      <div className="flex flex-col max-w-4xl gap-4 mx-auto">
-        <Textarea
-          name="title"
-          placeholder="Title"
-          className="text-2xl md:text-3xl min-h-[60px] md:min-h-[80px]"
-        />
-        <TextAreaGroup textareas={textareas} setTextareas={setTextareas} />
-        <div className="flex gap-3">
-          <Button
-            variant="icon"
-            size="iconInput"
-            className="border rounded-full border-zinc-800"
-            onClick={addTextarea}
-          >
-            <CircleFadingPlus className="w-5 h-5" />
-          </Button>
-          <Button
-            variant="icon"
-            size="iconInput"
-            className="border rounded-full border-zinc-800"
-            onClick={toggleFileInput}
-          >
-            {showFileInput ? (
-              <Close className="w-5 h-5" />
-            ) : (
-              <ImageIcon className="w-5 h-5" />
-            )}
-          </Button>
-          <Button
-            variant="icon"
-            size="iconInput"
-            className="border rounded-full border-zinc-800"
-            onClick={toggleSelect}
-          >
-            {showSelect ? (
-              <Close className="w-5 h-5" />
-            ) : (
-              <TableProperties className="w-5 h-5" />
-            )}
-          </Button>
-        </div>
-        {showFileInput && (
-          <FileInputGroup
-            onThumbnailChange={handleThumbnailChange}
-            onContentChange={handleContentChange}
-            initialThumbnailFile={thumbnailFile}
-            initialContentFile={contentFile}
+    <>
+      <form
+        onSubmit={postSubmit}
+        encType="multipart/form-data"
+        className="w-full"
+      >
+        <div className="flex flex-col max-w-4xl gap-4 mx-auto">
+          <Textarea
+            name="title"
+            placeholder="Title"
+            className="text-2xl md:text-3xl min-h-[60px] md:min-h-[80px]"
           />
-        )}
-        {showSelect && categories && (
-          <SelectInputGroup
-            categories={categories}
-            tags={tags}
-            onCategoryChange={handleCategoryChange}
-            onTagChange={handleTagChange}
-          />
-        )}
+          <TextAreaGroup textareas={textareas} setTextareas={setTextareas} />
+          <div className="flex gap-3">
+            <Button
+              variant="icon"
+              size="iconInput"
+              className="border rounded-full border-zinc-800"
+              onClick={addTextarea}
+            >
+              <CircleFadingPlus className="w-5 h-5" />
+            </Button>
+            <Button
+              variant="icon"
+              size="iconInput"
+              className="border rounded-full border-zinc-800"
+              onClick={toggleFileInput}
+            >
+              {showFileInput ? (
+                <Close className="w-5 h-5" />
+              ) : (
+                <ImageIcon className="w-5 h-5" />
+              )}
+            </Button>
+            <Button
+              variant="icon"
+              size="iconInput"
+              className="border rounded-full border-zinc-800"
+              onClick={toggleSelect}
+            >
+              {showSelect ? (
+                <Close className="w-5 h-5" />
+              ) : (
+                <TableProperties className="w-5 h-5" />
+              )}
+            </Button>
+          </div>
+          {showFileInput && (
+            <FileInputGroup
+              onThumbnailChange={handleThumbnailChange}
+              onContentChange={handleContentChange}
+              initialThumbnailFile={thumbnailFile}
+              initialContentFile={contentFile}
+            />
+          )}
+          {showSelect && categories && (
+            <SelectInputGroup
+              categories={categories}
+              tags={tags}
+              onCategoryChange={handleCategoryChange}
+              onTagChange={handleTagChange}
+            />
+          )}
 
-        <div className="flex justify-end w-full">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="my-8 rounded-full"
-            type="submit"
-          >
-            Publish
-          </Button>
+          <div className="flex justify-end w-full">
+            <Button
+              variant="secondary"
+              size="lg"
+              className="my-8 rounded-full"
+              type="submit"
+            >
+              Publish
+            </Button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Slide}
+      />
+    </>
   );
 };
 

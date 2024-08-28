@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import API_URL from "@/utils/config";
 import Loading from "@/components/ui/loading";
 import DashboardDetail from "./DashboardDetail";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -55,9 +57,35 @@ const Dashboard = () => {
     return <Loading height="h-screen" margintop={"-mt-28"} />;
   }
 
+  const notify = () =>
+    toast.error("🦄 Wow so easy!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+
   return (
     <>
-      <DashboardDetail />
+      <button onClick={notify}>Notify!</button>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </>
   );
 };
