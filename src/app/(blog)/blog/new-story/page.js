@@ -1,30 +1,22 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { verifyToken } from "@/utils/auth";
-import {
-  CircleFadingPlus,
-  X as Close,
-  TableProperties,
-  ImageIcon,
-} from "lucide-react";
+import { useFetchData } from "@/hooks/useFetchData";
+import { Slide, ToastContainer, toast } from "react-toastify";
 import Loading from "@/components/ui/loading";
 import TextAreaGroup from "./TextAreaGroup";
-import API_URL from "@/utils/config";
 import FileInputGroup from "./FileInputGroup";
 import SelectInputGroup from "./SelectInputGroup";
-import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
+import FormControls from "./FormControls.jsx";
+import MetaFileDisplay from "./MetaFileDisplay";
+import API_URL from "@/utils/config";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
-const NewStory = () => {
+const NewStoryForm = () => {
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
   const [textareas, setTextareas] = useState([{ id: 1 }]);
@@ -33,70 +25,28 @@ const NewStory = () => {
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [contentFile, setContentFile] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [categories, setCategories] = useState(null);
-  const [tags, setTags] = useState(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedTagId, setSelectedTagId] = useState("");
   const [thumbnailFileName, setThumbnailFileName] = useState("");
   const [contentFileName, setContentFileName] = useState("");
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const [selectedTagName, setSelectedTagName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const categories = useFetchData("categories");
+  const tags = useFetchData("tags");
   const router = useRouter();
 
   useEffect(() => {
     verifyToken(router, setAuthorized, setLoading, setUserId);
   }, [router]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(API_URL + `api/categories/all`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const data = await response.json();
-        setCategories(data);
-
-        console.log("Categories fetched successfully:", data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch(API_URL + `api/tags/all`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const data = await response.json();
-        setTags(data);
-
-        console.log("Tags fetched successfully:", data);
-      } catch (error) {
-        console.error("Error fetching tags:", error);
-      }
-    };
-
-    fetchTags();
-  }, []);
-
   if (loading) {
     return <Loading height="h-screen" margintop={"-mt-28"} />;
   }
 
   const addTextarea = (e) => {
-    e.preventDefault(); // Mencegah pengiriman form
+    e.preventDefault();
     setTextareas([...textareas, { id: textareas.length + 1 }]);
   };
 
@@ -136,8 +86,9 @@ const NewStory = () => {
     setSelectedTagName(name);
   };
 
-  const postSubmit = async (e) => {
+  const createPost = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const formData = new FormData();
     formData.append("title", e.target.title.value);
@@ -170,14 +121,11 @@ const NewStory = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Story submitted successfully!");
         toast.success("Story submitted successfully!");
         setTimeout(() => {
           router.push("/");
         }, 5000);
       } else {
-        console.log("Failed to submit story");
-
         if (data.errors) {
           Object.entries(data.errors).forEach(([key, value]) => {
             toast.error(value[0]);
@@ -187,14 +135,16 @@ const NewStory = () => {
         }
       }
     } catch (error) {
-      console.error("Error submitting story:", error);
+      toast.error("Failed to submit story.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <>
       <form
-        onSubmit={postSubmit}
+        onSubmit={createPost}
         encType="multipart/form-data"
         className="w-full"
       >
@@ -205,67 +155,13 @@ const NewStory = () => {
             className="text-2xl md:text-3xl min-h-[60px] md:min-h-[80px]"
           />
           <TextAreaGroup textareas={textareas} setTextareas={setTextareas} />
-          <div className="flex gap-3">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant="icon"
-                    size="iconInput"
-                    className="border rounded-full border-zinc-800"
-                    onClick={addTextarea}
-                  >
-                    <CircleFadingPlus className="w-5 h-5" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Add new paragraph</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant="icon"
-                    size="iconInput"
-                    className="border rounded-full border-zinc-800"
-                    onClick={toggleFileInput}
-                  >
-                    {showFileInput ? (
-                      <Close className="w-5 h-5" />
-                    ) : (
-                      <ImageIcon className="w-5 h-5" />
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Add media</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant="icon"
-                    size="iconInput"
-                    className="border rounded-full border-zinc-800"
-                    onClick={toggleSelect}
-                  >
-                    {showSelect ? (
-                      <Close className="w-5 h-5" />
-                    ) : (
-                      <TableProperties className="w-5 h-5" />
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Add category and tags</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          <FormControls
+            addTextarea={addTextarea}
+            toggleFileInput={toggleFileInput}
+            toggleSelect={toggleSelect}
+            showFileInput={showFileInput}
+            showSelect={showSelect}
+          />
           {showFileInput && (
             <FileInputGroup
               onThumbnailChange={handleThumbnailChange}
@@ -282,38 +178,28 @@ const NewStory = () => {
               onTagChange={handleTagChange}
             />
           )}
-
-          <div className="flex flex-wrap items-center gap-2 mt-2 text-xs">
-            {thumbnailFileName && (
-              <p className="px-2 py-1 text-white rounded bg-zinc-800">
-                Thumbnail: {thumbnailFileName}
-              </p>
-            )}
-            {contentFileName && (
-              <p className="px-2 py-1 text-white rounded bg-zinc-800">
-                Content Image: {contentFileName}
-              </p>
-            )}
-            {selectedCategoryName && (
-              <p className="px-2 py-1 text-white capitalize rounded bg-zinc-800">
-                Category: {selectedCategoryName}
-              </p>
-            )}
-            {selectedTagName && (
-              <p className="px-2 py-1 text-white capitalize rounded bg-zinc-800">
-                Tag: {selectedTagName}
-              </p>
-            )}
-          </div>
-
+          <MetaFileDisplay
+            thumbnailFileName={thumbnailFileName}
+            contentFileName={contentFileName}
+            selectedCategoryName={selectedCategoryName}
+            selectedTagName={selectedTagName}
+          />
           <div className="flex justify-end w-full">
             <Button
               variant="secondary"
               size="lg"
               className="my-8 rounded-full"
               type="submit"
+              disabled={isSubmitting}
             >
-              Publish
+              {isSubmitting ? (
+                <span className="flex items-center">
+                  <LoadingSpinner />
+                  <span className="ml-2">Publishing...</span>
+                </span>
+              ) : (
+                "Publish"
+              )}
             </Button>
           </div>
         </div>
@@ -321,7 +207,7 @@ const NewStory = () => {
 
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
@@ -337,4 +223,4 @@ const NewStory = () => {
   );
 };
 
-export default NewStory;
+export default NewStoryForm;

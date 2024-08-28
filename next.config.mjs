@@ -8,6 +8,7 @@ const nextConfig = {
         "resources.247studio.co",
         "maag.codesupply.co",
         "blog-api.arisandika.my.id",
+        "arisandika.my.id",
         "localhost",
     ],
   },
