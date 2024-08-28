@@ -158,13 +158,16 @@ const NewStory = () => {
 
       if (response.ok) {
         console.log("Story submitted successfully!");
-        router.push("/blog/new-story");
+        toast.success("Story submitted successfully!");
+        setTimeout(() => {
+          router.push("/");
+        }, 5000); 
       } else {
         console.log("Failed to submit story");
 
         if (data.errors) {
           Object.entries(data.errors).forEach(([key, value]) => {
-            toast.error(value[0]); // Display the first error message for each field
+            toast.error(value[0]);
           });
         } else {
           toast.error("Failed to submit story.");
