@@ -9,9 +9,9 @@ export function CarouselMeta({ post }) {
         <p className="px-2 py-1 capitalize bg-white rounded text-zinc-800">
           {post.tag.name}
         </p>
-        <p className="text-zinc-400">
+        <p>
           {format(parseISO(post.created_at), "MMMM dd, yyyy")} by
-          <span className="mx-2 text-white capitalize">{post.user.name}</span>
+          <span className="mx-2 capitalize">{post.user.name}</span>
         </p>
         <div className="flex items-center gap-1">
           <MessageCircle className="w-4 h-4" />

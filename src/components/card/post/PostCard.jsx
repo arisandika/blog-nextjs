@@ -26,7 +26,7 @@ const PostCard = ({ minimal, preloadImage, fontSize, fontWeight }) => {
               thumbnail_url={
                 post.thumbnail_url !== '' && post.thumbnail_url !== null
                   ? post.thumbnail_url
-                  : "https://maag.codesupply.co/lifestyle/wp-content/uploads/sites/2/2024/08/demo-image-0061-1536x864.webp"
+                  : ""
               }
               preloadImage={preloadImage}
             />

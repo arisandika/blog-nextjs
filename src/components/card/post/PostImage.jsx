@@ -7,7 +7,7 @@ const PostImage = ({ alias, thumbnail_url, preloadImage }) => {
     <div className={cx("overflow-hidden bg-gray-100 rounded")}>
       <Link
         href={`/blog/${alias}`} scroll={true}
-        className={cx("relative block aspect-[9/5]")}
+        className={cx("relative block aspect-video")}
       >
         <Image
           src={thumbnail_url}

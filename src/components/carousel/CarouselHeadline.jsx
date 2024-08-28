@@ -19,7 +19,7 @@ export function CarouselHeadline() {
     return (
       <>
         <div className="flex flex-col space-y-3">
-          <Skeleton className="w-full aspect-[9/8.4] md:aspect-[9/3.9]" />
+          <Skeleton className="object-cover w-full aspect-[9/9] md:aspect-[9/4]" />
         </div>
       </>
     );

@@ -10,7 +10,7 @@ export function CarouselPostItem({ post }) {
           src={post.thumbnail_url}
           alt="hero image"
           priority
-          className="object-cover w-full transition-all duration-300 aspect-[9/8.4] md:aspect-[9/3.9] group-hover:scale-[1.02]"
+          className="object-cover w-full transition-all duration-300 aspect-[9/9] md:aspect-[9/4] group-hover:scale-[1.02]"
           width={1000}
           height={1000}
         />

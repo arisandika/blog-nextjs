@@ -14,7 +14,7 @@ const PostDetail = () => {
   if (!post) return <div>No post data available.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="md:w-[56rem] mx-auto">
       <section>
         <PostMetaDetail
           category={post.category.name}

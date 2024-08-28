@@ -8,7 +8,7 @@ const PostImageDetail = ({ contentImageUrl, title }) => {
         alt={title}
         loading="eager"
         sizes="100vw"
-        className="object-cover w-full"
+        className="object-cover w-[56rem] aspect-auto"
         width={500}
         height={500}
       />
