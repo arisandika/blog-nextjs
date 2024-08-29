@@ -16,7 +16,7 @@ const LoginForm = ({ setMessage }) => {
 
   const loginSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch(API_URL + "api/login", {
         method: "POST",
@@ -26,35 +26,40 @@ const LoginForm = ({ setMessage }) => {
         credentials: "include",
         body: JSON.stringify({ email, password }),
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
         setMessage(errorData.error || "An error occurred. Please try again.");
         return;
       }
-
+  
       const data = await response.json();
       const roleAs = data.data.user.role_as;
-      localStorage.setItem("token", data.data.token);
-
-      setIsLoggedIn(true);
-
-      switch (roleAs) {
-        case 0:
-          router.push("/blog-new-story");
-          break;
-        case 1:
-          router.push("/dashboard");
-          break;
-        default:
-          setMessage("You do not have access to any dashboard");
-          break;
+      const token = data.data.token;
+  
+      if (token) {
+        localStorage.setItem("token", token);
+        setIsLoggedIn(true);
+  
+        switch (roleAs) {
+          case 0:
+            router.push("/blog-new-story");
+            break;
+          case 1:
+            router.push("/dashboard");
+            break;
+          default:
+            setMessage("You do not have access to any dashboard");
+            break;
+        }
+      } else {
+        setMessage("Failed to login. No token provided.");
       }
     } catch (error) {
       setMessage("Network error. Please try again later.");
     }
   };
-
+  
   return (
     <form onSubmit={loginSubmit}>
       <CardContent className="grid gap-4">
@@ -67,6 +72,7 @@ const LoginForm = ({ setMessage }) => {
             placeholder="example@gmail.com"
             required
             value={email}
+            autoComplete="email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>

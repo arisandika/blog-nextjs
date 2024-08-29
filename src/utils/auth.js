@@ -40,5 +40,9 @@ export const verifyToken = async (
     }
   } catch (error) {
     router.replace("/login");
+  } finally {
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
   }
 };

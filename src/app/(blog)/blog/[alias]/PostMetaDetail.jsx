@@ -19,6 +19,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const PostMetaDetail = ({ category, title, created_at, author, tag }) => {
   // Mengambil URL halaman saat ini
@@ -74,10 +80,18 @@ const PostMetaDetail = ({ category, title, created_at, author, tag }) => {
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger className="ms-2">
-              <div className="flex items-center gap-1">
-                <Share2 className="w-4 h-4" />
-                <p>Share</p>
-              </div>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="flex items-center gap-1">
+                      <Share2 className="w-4 h-4" />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Share!</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>

@@ -102,16 +102,6 @@ const UserMenu = () => {
   if (loading)
     return (
       <>
-        <Button
-          variant="icon"
-          size="icon"
-          className="hidden md:flex"
-          onClick={() => router.push("/blog/new-story")}
-        >
-          <SquarePen className="w-5 h-5" />
-          <span className="mx-2">Write</span>
-        </Button>
-
         <Button variant="icon" size="icon">
           <User2Icon className="w-5 h-5" />
           <span className="sr-only">Toggle user menu</span>
@@ -121,6 +111,7 @@ const UserMenu = () => {
 
   return (
     <DropdownMenu>
+      {isLoggedIn && (
       <Button
         variant="icon"
         size="icon"
@@ -130,7 +121,7 @@ const UserMenu = () => {
         <SquarePen className="w-5 h-5" />
         <span className="mx-2">Write</span>
       </Button>
-
+      )}
       <DropdownMenuTrigger asChild>
         <Button variant="icon" size="icon">
           <User2Icon className="w-5 h-5" />
