@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* fonts */
+@font-face {
+  font-family: "power";
+  src: url("../fonts/PowerGroteskTrial-Heavy.woff2") format("woff2"),
+    url("../fonts/PowerGroteskTrial-Heavy.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "durer";
+  src: url("../fonts/durer-webfont.woff2") format("woff2"),
+    url("../fonts/durer-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "montreal";
+  src: url("../fonts/ppneuemontreal-medium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "montreal-thin";
+  src: url("../fonts/ppneuemontreal-thin.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --font-power: "power";
+  --font-durer: "durer";
+  --font-montreal: "montreal";
+  --font-montreal-thin: "montreal-thin";
+}
+
+.main {
+  font-family: var(--font-montreal);
+  letter-spacing: 0.5px;
+  background-color: #040404;
+  color: #f4f4f5;
+}
+
+.power {
+  font-family: var(--font-power);
+}
+
+.durer {
+  font-family: var(--font-durer);
+  font-weight: 900;
+}
+
+.montreal {
+  font-family: var(--font-montreal);
+}
+
+.montreal-thin {
+  font-family: var(--font-montreal-thin);
+}
+
+/* webkit scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Toastify */
+
+.toast-message {
+  font-size: 12px;
+  line-height: 1.25rem /* 20px */;
+}
