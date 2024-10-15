@@ -24,7 +24,7 @@ const DashboardDetail = ({ user }) => {
           <p className="text-xs text-muted-foreground">No stories</p>
         </div>
       </div>
-      <div className="w-full pl-8 border rounded-lg md:border-0 md:border-l border-zinc-800">
+      <div className="w-full pl-8 border rounded-lg md:rounded-none md:border-0 md:border-l border-zinc-800">
         <div className="mt-10">
           <div className="flex items-center justify-center w-16 h-16 mb-5 text-xl text-white bg-green-700 rounded-full">
             {user.name.charAt(0)}
