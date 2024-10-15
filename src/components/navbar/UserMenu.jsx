@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import {
-  Book,
-  Bookmark,
-  ChartColumnBig,
-  Edit,
-  SquarePen,
   User2Icon,
+  SquarePen,
+  Bookmark,
+  Book,
+  ChartColumnBig,
+  BookCheck,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -101,14 +101,14 @@ const UserMenu = () => {
 
   const UserLinkMenu = isLoggedIn
     ? [
-        { label: "Profile", href: "/dashboard", icon: () => <User2Icon /> },
-        { label: "Library", href: "/library", icon: () => <Bookmark /> },
-        { label: "Stories", href: "/stories", icon: () => <Book /> },
-        { label: "Stats", href: "/stats", icon: () => <ChartColumnBig /> },
+        { label: "Profile", href: "/dashboard", icon: User2Icon }, // No arrow function here
+        { label: "Library", href: "/library", icon: Bookmark },
+        { label: "Stories", href: "/stories", icon: Book },
+        { label: "Stats", href: "/stats", icon: ChartColumnBig },
       ]
     : [
-        { label: "Sign in", href: "/login" },
-        { label: "Sign up", href: "/register" },
+        { label: "Sign in", href: "/login", icon: User2Icon },
+        { label: "Sign up", href: "/register", icon: BookCheck },
       ];
 
   if (loading)
