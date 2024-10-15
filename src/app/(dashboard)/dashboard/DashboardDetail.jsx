@@ -5,7 +5,7 @@ import { Edit } from "lucide-react";
 const DashboardDetail = ({ user }) => {
   return (
     <div className="grid w-full grid-cols-1 gap-10 md:gap-0 md:px-16 md:grid-cols-4">
-      <div className="w-full h-auto bg-red-500 md:col-span-3">
+      <div className="w-full h-auto md:col-span-3">
         <h2 className="my-10 text-2xl font-bold md:text-4xl">{user.name}</h2>{" "}
         <Tabs defaultValue="home">
           <TabsList>
@@ -24,7 +24,7 @@ const DashboardDetail = ({ user }) => {
           <p className="text-xs text-muted-foreground">No stories</p>
         </div>
       </div>
-      <div className="w-full pl-8 bg-blue-600 border rounded-lg md:border-0 md:border-l border-zinc-800">
+      <div className="w-full pl-8 border rounded-lg md:border-0 md:border-l border-zinc-800">
         <div className="mt-10">
           <div className="flex items-center justify-center w-16 h-16 mb-5 text-xl text-white bg-green-700 rounded-full">
             {user.name.charAt(0)}
