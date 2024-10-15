@@ -4,17 +4,16 @@ import { Edit } from "lucide-react";
 
 const DashboardDetail = ({ user }) => {
   return (
-    <div className="grid w-full min-h-screen md:px-16 md:grid-cols-4">
+    <div className="grid w-full min-h-screen grid-cols-1 md:px-16 md:grid-cols-4">
       <div className="w-full col-span-3">
-        <h2 className="my-10 text-4xl font-bold">{user.name}</h2>{" "}
-        {/* Tampilkan nama user */}
+        <h2 className="my-10 text-2xl font-bold md:text-4xl">{user.name}</h2>{" "}
         <Tabs defaultValue="home">
           <TabsList>
             <TabsTrigger value="home">Home</TabsTrigger>
             <TabsTrigger value="about">About</TabsTrigger>
           </TabsList>
         </Tabs>
-        <div className="max-w-xl p-6 mt-12 rounded-lg bg-zinc-950">
+        <div className="max-w-xl p-6 mt-12 rounded-lg bg-zinc-900">
           <div className="flex items-center mb-4 space-x-2">
             <div className="flex items-center justify-center w-8 h-8 text-white bg-green-700 rounded-full">
               {user.name.charAt(0)}
@@ -25,7 +24,7 @@ const DashboardDetail = ({ user }) => {
           <p className="text-xs text-muted-foreground">No stories</p>
         </div>
       </div>
-      <div className="w-full pl-8 border-l border-zinc-800">
+      <div className="w-full pl-8 border rounded-lg md:border-0 md:border-l border-zinc-800">
         <div className="mt-10">
           <div className="flex items-center justify-center w-16 h-16 mb-5 text-xl text-white bg-green-700 rounded-full">
             {user.name.charAt(0)}
